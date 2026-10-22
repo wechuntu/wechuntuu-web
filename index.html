@@ -138,6 +138,18 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;backgroun
 .vcard{background:var(--card);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .vcard p{color:var(--ink-2);font-size:.93rem}
 .vlink{font-size:.88rem;color:var(--orange-ink);text-decoration-color:var(--orange)}
+.vgrid{align-items:start}
+.vdet summary{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer}
+.vdet summary::-webkit-details-marker{display:none}
+.vdet summary h3{flex:1}
+.vdet .cnt{font-family:var(--f-mono);font-size:.75rem;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.vdet .chev{width:14px;height:14px;transition:transform .2s;color:var(--orange-ink)}
+.vdet[open] .chev{transform:rotate(180deg)}
+.vdet-in{display:grid;gap:12px;margin-top:12px}
+.alert-scale{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;text-align:center}
+.alert-scale span{padding:6px 2px;border-radius:2px;color:#1a1a1a}
+.alert-scale .g{background:#5cb85c}.alert-scale .y{background:#f2d43d}.alert-scale .o{background:#f0883e}.alert-scale .r{background:#e04b3c;color:#fff}
+.cert-h{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:8px 0 -4px}
 .vlist{list-style:none;margin:0;padding:0;display:grid}
 .vlist li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
 .vlist li span{display:grid;min-width:0}
@@ -401,6 +413,17 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
 .edu-gal .wide{grid-column:span 2}
 @media (max-width:760px){.edu-gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px}}
 .leader-head img.leader-pic{width:72px;height:72px;border-radius:50%;object-fit:cover}
+/* Referencias */
+.refs{margin-top:48px}
+.refs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+@media (max-width:860px){.refs-grid{grid-template-columns:1fr}}
+.ref{display:grid;grid-template-columns:52px 1fr;grid-template-rows:auto auto;gap:6px 14px;align-items:start;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--orange);padding:18px;text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .15s}
+.ref:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.ref svg{width:52px;height:52px;color:var(--ink);grid-row:span 2}
+.ref span{display:grid;gap:4px}
+.ref b{font-family:var(--f-display);font-size:1rem;line-height:1.25}
+.ref small{color:var(--ink-2);font-size:.85rem}
+.ref em{font-style:normal;font-family:var(--f-display);font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink)}
 </style>
 </head>
 <body>
@@ -415,7 +438,7 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
       <div class="dd"><button type="button" aria-expanded="false" aria-controls="dd-exp"><span data-i18n="nav_exp">Experiencias</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
         <div class="dd-menu" id="dd-exp"><a href="#experiencias"><span data-i18n="m_exp1">Todas las experiencias</span></a><a href="#a-medida"><span data-i18n="m_exp2">Paquete a tu medida</span></a><a href="#terreno"><span data-i18n="m_exp3">Galería en terreno</span></a><a href="#educacion"><span data-i18n="m_exp5">Educación al aire libre</span></a><a href="#reservar"><span data-i18n="m_exp4">Cómo reservar</span></a></div></div>
       <div class="dd"><button type="button" aria-expanded="false" aria-controls="dd-des"><span data-i18n="nav_des">Destino</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
-        <div class="dd-menu" id="dd-des"><a href="#territorio"><span data-i18n="m_des1">Destino Mocho Choshuenco</span></a><a href="#clima"><span data-i18n="m_des2">El tiempo en Choshuenco</span></a><a href="#hua-hum"><span data-i18n="m_des3">Paso Hua Hum</span></a><a href="#entradas"><span data-i18n="m_des4">Entradas a parques</span></a><a href="#dormir"><span data-i18n="m_des5">Dónde dormir</span></a><a href="#comer"><span data-i18n="m_des6">Dónde comer</span></a><a href="#cafe"><span data-i18n="m_des7">Cafeterías</span></a></div></div>
+        <div class="dd-menu" id="dd-des"><a href="#territorio"><span data-i18n="m_des1">Destino Mocho Choshuenco</span></a><a href="#clima"><span data-i18n="m_des2">El tiempo en Choshuenco</span></a><a href="#volcan"><span data-i18n="m_des8">Alerta volcánica</span></a><a href="#hua-hum"><span data-i18n="m_des3">Paso Hua Hum</span></a><a href="#entradas"><span data-i18n="m_des4">Entradas a parques</span></a><a href="#dormir"><span data-i18n="m_des5">Dónde dormir</span></a><a href="#comer"><span data-i18n="m_des6">Dónde comer</span></a><a href="#cafe"><span data-i18n="m_des7">Cafeterías</span></a></div></div>
       <a class="nav-top" href="#blog" data-i18n="nav_blog">Blog</a>
       <div class="dd"><button type="button" aria-expanded="false" aria-controls="dd-con"><span data-i18n="nav_con">Contacto</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
         <div class="dd-menu" id="dd-con"><a href="#contacto"><span data-i18n="m_con1">Escríbenos</span></a><a href="#grupos"><span data-i18n="m_con2">Grupos y agencias</span></a><a href="#ubicacion"><span data-i18n="m_con3">Dónde estamos</span></a></div></div>
@@ -592,7 +615,7 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
           <a class="btn btn-ghost wa-link" data-wa="edu2" href="#" target="_blank" rel="noopener" data-i18n="edu_cta2">Ver programas disponibles</a>
         </div>
       </div>
-      <figure class="edu-photo"><img class="photo" style="margin:0" src="img/e-esqui-clase.jpg" alt="Clase de esquí con niños y adolescentes en la nieve, guiada por un instructor" loading="lazy" width="1280" height="963"><figcaption class="photo-cap" data-i18n="edu_cap">Escuela de esquí de la Escuela de Agua y Montaña.</figcaption></figure>
+      <figure class="edu-photo"><img class="photo" style="margin:0" src="img/e-esqui-clase.jpg" alt="Clase de esquí con niños y adolescentes en la nieve, guiada por un instructor" loading="lazy" width="1280" height="963"></figure>
     </div>
 
 
@@ -645,11 +668,23 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
         <p class="eyebrow">Trip leader</p>
         <div class="leader-head"><img class="leader-pic" src="img/angel.jpg" alt="Angel Delgado Cárdenas, trip leader de Wechuntu" width="400" height="400"><h3 style="font-size:1.6rem;flex:1">Angel Delgado Cárdenas</h3><a href="https://angm.cl" target="_blank" rel="noopener" aria-label="Asociación Nacional de Guías de Montaña de Chile"><img src="img/angm.png" alt="ANGM Chile" width="72" height="72"></a></div>
         <p data-i18n="leader_bio">Nació y se formó en Choshuenco, al pie del Mocho-Choshuenco. Lleva más de diez años guiando en volcanes, glaciares, ríos y lagos del sur de Chile, y fundó Wechuntu para compartir este territorio con estándares profesionales de seguridad.</p>
+        <p class="cert-h" data-i18n="cf_h">Formación técnica y deportiva</p>
         <ul class="certs">
           <li><span>ANGM</span><span data-i18n="c1">Guía de Media Montaña, registro N° 37028</span></li>
           <li><span>IRF</span><span data-i18n="c2">Guía de Rafting nivel III</span></li>
-          <li><span>ACA</span><span data-i18n="c3">Guía de Kayak de travesía</span></li>
-          <li><span>WFR</span><span data-i18n="c4">Primeros auxilios en áreas remotas</span></li>
+          <li><span>ACA</span><span data-i18n="c3">Guía de Kayak de travesía nivel II</span></li>
+          <li><span>WFR</span><span data-i18n="c4">Primeros auxilios en áreas remotas (recertificado 2025)</span></li>
+          <li><span>NOLS</span><span data-i18n="c5b">Master de No Deje Rastro (Leave No Trace)</span></li>
+          <li><span data-i18n="c6k">Avalanchas</span><span data-i18n="c6b">Formación en avalanchas REC+1</span></li>
+          <li><span data-i18n="c7k">Rescate</span><span data-i18n="c7b">Rescate en aguas rápidas</span></li>
+        </ul>
+        <p class="cert-h" data-i18n="ca_h">Formación académica</p>
+        <ul class="certs">
+          <li><span>UACh</span><span data-i18n="a1">Profesor de Historia y Ciencias Sociales</span></li>
+          <li><span>UACh</span><span data-i18n="a2">Magíster en Gobierno, Gestión y Desarrollo Regional</span></li>
+          <li><span>USAL</span><span data-i18n="a3">Diplomado en Turismo Sustentable, Universidad de Salamanca</span></li>
+          <li><span>CLACSO</span><span data-i18n="a4">Diplomado Superior en Formación Política</span></li>
+          <li><span>CEPAL</span><span data-i18n="a5">Territorialización de los ODS en América Latina y el Caribe (ILPES, 2025)</span></li>
         </ul>
         <a class="verify" href="https://angm.cl/buscar-un-guia/" target="_blank" rel="noopener" data-i18n="reg_verify">Verificar en el buscador de guías ANGM</a>
       </article>
@@ -664,6 +699,27 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
         <a class="verify" href="https://serviciosturisticos.sernatur.cl" target="_blank" rel="noopener" data-i18n="k1link">Verificar en servicios registrados SERNATUR</a>
         <img class="photo" src="img/seguridad.jpg" alt="Charla de seguridad antes de iniciar la salida" loading="lazy" width="1100" height="734">
         <p class="photo-cap" data-i18n="seg_cap">Charla técnica y de seguridad antes de cada salida.</p>
+      </div>
+    </div>
+    <div class="refs">
+      <p class="eyebrow" data-i18n="ref_eyebrow">Turismo responsable</p>
+      <h3 class="edu-h" style="margin-top:8px" data-i18n="ref_h">Referencias que orientan nuestro trabajo</h3>
+      <div class="refs-grid">
+        <a class="ref" href="https://www.untourism.int/es/codigo-etico-mundial-para-el-turismo" target="_blank" rel="noopener">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M7 24h34M24 7c-5 5-7 11-7 17s2 12 7 17c5-5 7-11 7-17S29 12 24 7z" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="36" cy="36" r="8" fill="var(--orange)"/><path d="M32.5 36l2.4 2.4 4.6-4.8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><b data-i18n="ref1t">Código Ético Mundial para el Turismo</b><small data-i18n="ref1">ONU Turismo · 10 principios para un turismo responsable, sostenible y accesible.</small></span>
+          <em data-i18n="ref_go">Abrir</em>
+        </a>
+        <a class="ref" href="https://portalserviciosturisticos.sernatur.cl/wp-content/uploads/2023/11/Manual-de-buenas-practicas-operadores.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 10h13a4 4 0 0 1 4 4v24a3 3 0 0 0-3-3H9z M39 10H28a4 4 0 0 0-4 4v24a3 3 0 0 1 3-3h12z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M33 16c-3 1-4.5 3.5-4 7 3.5.3 6-1.5 6.5-5" fill="var(--orange)" stroke="var(--orange)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span><b data-i18n="ref2t">Manual de Buenas Prácticas para Tour Operadores</b><small data-i18n="ref2">SERNATUR · buenas prácticas económicas, socioculturales y ambientales.</small></span>
+          <em data-i18n="ref_go">Abrir</em>
+        </a>
+        <a class="ref" href="https://rnvv.sernageomin.cl/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 40l13-20h4l3 4 3-4h4l11 20z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M22 14c-1-3 1-6 4-6M27 14c1-3 4-4 6-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="45" r="2.2" fill="#5cb85c"/><circle cx="20" cy="45" r="2.2" fill="#f2d43d"/><circle cx="28" cy="45" r="2.2" fill="#f0883e"/><circle cx="36" cy="45" r="2.2" fill="#e04b3c"/></svg>
+          <span><b data-i18n="ref3t">Alerta técnica volcánica</b><small data-i18n="ref3">SERNAGEOMIN · estado vigente del complejo Mocho-Choshuenco.</small></span>
+          <em data-i18n="ref_go">Abrir</em>
+        </a>
       </div>
     </div>
     <div class="staff" id="equipo">
@@ -773,6 +829,12 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
         <div id="wx" class="wx" aria-live="polite"><p class="wx-msg" data-i18n="w_load">Cargando pronóstico…</p></div>
         <a class="vlink" href="https://www.windy.com/-39.835/-72.082?-39.835,-72.082,10" target="_blank" rel="noopener" data-i18n="w_link">Pronóstico detallado y viento en Windy</a>
       </article>
+      <article class="vcard" id="volcan">
+        <h3 data-i18n="v_h">Alerta volcánica</h3>
+        <p data-i18n="v_p">SERNAGEOMIN vigila el complejo Mocho-Choshuenco y publica su alerta técnica. Revísala antes de tu salida a la montaña.</p>
+        <div class="alert-scale" aria-hidden="true"><span class="g" data-i18n="al_g">Verde</span><span class="y" data-i18n="al_y">Amarilla</span><span class="o" data-i18n="al_o">Naranja</span><span class="r" data-i18n="al_r">Roja</span></div>
+        <a class="vlink" href="https://rnvv.sernageomin.cl/" target="_blank" rel="noopener" data-i18n="v_l">Ver alerta técnica vigente (SERNAGEOMIN)</a>
+      </article>
       <article class="vcard" id="hua-hum">
         <h3 data-i18n="h_h">Paso internacional Hua Hum</h3>
         <p data-i18n="h_p">Une la ruta 203 con San Martín de los Andes, en Argentina. Para llegar se cruza el lago Pirihueico en barcaza desde Puerto Fuy. En verano y fines de semana largos conviene reservar.</p>
@@ -790,7 +852,7 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
         </ul>
       </article>
       <article class="vcard" id="dormir">
-        <h3 data-i18n="d_h">Dónde dormir</h3>
+        <details class="vdet"><summary><h3 data-i18n="d_h">Dónde dormir</h3><span class="cnt">7</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary><div class="vdet-in">
         <ul class="vlist">
           <li><span><b>Los Canelos Bed &amp; Breakfast</b><small>Choshuenco · B&amp;B</small></span><a href="https://www.google.com/maps/search/?api=1&query=Los+Canelos+Bed+and+Breakfast+Choshuenco" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Hostería Rucapillan</b><small>Choshuenco · Hostería y cabañas</small></span><a href="https://www.rucapillan.cl" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
@@ -801,9 +863,10 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
           <li><span><b>Reserva Biológica Huilo Huilo</b><small>Neltume · Hoteles y cabañas</small></span><a href="https://huilohuilo.com/donde-alojar/" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
         </ul>
         <a class="vlink" href="https://serviciosturisticos.sernatur.cl" target="_blank" rel="noopener" data-i18n="d_l">Busca alojamientos registrados en SERNATUR</a>
+        </div></details>
       </article>
       <article class="vcard" id="comer">
-        <h3 data-i18n="e_h">Dónde comer</h3>
+        <details class="vdet"><summary><h3 data-i18n="e_h">Dónde comer</h3><span class="cnt">10</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary><div class="vdet-in">
         <ul class="vlist">
           <li><span><b>Restaurante Rucapillan</b><small>Choshuenco</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Restaurante+Rucapillan+Choshuenco&amp;query_place_id=ChIJP3knq1MCFJYRcTfdvoSym_8" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Restaurant La Posada</b><small>Choshuenco</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant+y+Hospedaje+La+Posada+Choshuenco&amp;query_place_id=ChIJUV2qjk0CFJYR29MuMzkJwg0" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
@@ -811,15 +874,16 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
           <li><span><b>Restaurante y Pizzería Rayenco</b><small>Choshuenco</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Restaurante+y+Pizzeria+Rayenco+Choshuenco&amp;query_place_id=ChIJhdZ4QUwCFJYRjgs2b1OKhfs" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Ruko Gourmet</b><small>Lago Neltume</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Ruko+Gourmet+Huilo+Huilo&amp;query_place_id=ChIJc2ex-D0BFJYRu1boi6TcbSU" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Cruz del Sur</b><small>Ruta 203</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Cruz+del+Sur+restaurante+Neltume+Panguipulli" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
-          <li><span><b>Pizzería Petermann</b><small>Neltume</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Cervecer%C3%ADa+Petermann+Neltume&amp;query_place_id=ChIJPSAB_QxVEZYRQMqIPIfxN08" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
+          <li><span><b>Cervecería Petermann</b><small>Neltume</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Cervecer%C3%ADa+Petermann+Neltume&amp;query_place_id=ChIJPSAB_QxVEZYRQMqIPIfxN08" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Restaurante Puerto Fuy</b><small>Puerto Fuy</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant+Puerto+Fuy&amp;query_place_id=ChIJS5lcdLBVEZYRFa_Y_RuCV1g" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Feria Peñi Newen</b><small>Choshuenco</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Feria+Pe%C3%B1i+Newen+Choshuenco" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Galpón Gastronómico Puerto Fuy</b><small>Puerto Fuy</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Galp%C3%B3n+Gastron%C3%B3mico+Puerto+Fuy&amp;query_place_id=ChIJEygVvZ5VEZYR6jLqXqAdZ-w" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
         </ul>
         <a class="vlink" href="https://sietelagos.cl/gastronomia-y-ferias/" target="_blank" rel="noopener" data-i18n="e_l">Más gastronomía en sietelagos.cl</a>
+        </div></details>
       </article>
       <article class="vcard" id="cafe">
-        <h3 data-i18n="c_h">¿Buscas buen café?</h3>
+        <details class="vdet"><summary><h3 data-i18n="c_h">¿Buscas buen café?</h3><span class="cnt">4</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary><div class="vdet-in">
         <p data-i18n="c_p">Antes o después de la salida, estas cafeterías del destino valen la pausa.</p>
         <ul class="vlist">
           <li><span><b>Mi Lugar</b><small>Choshuenco · Café de especialidad</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Mi+lugar+Cafeter%C3%ADa+de+especialidad+Choshuenco&amp;query_place_id=ChIJW0es1TQDFJYRzStnGtdoAHc" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
@@ -827,6 +891,7 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
           <li><span><b>Dulce y Natural</b><small>Neltume</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Dulce+y+Natural+Neltume&amp;query_place_id=ChIJaxzwsfn_E5YR11MsAhTbtY8" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
           <li><span><b>Pilmaykeñ Cafetería</b><small>Puerto Fuy</small></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Pilmayke%C3%B1+Cafeter%C3%ADa+Puerto+Fuy&amp;query_place_id=ChIJTzvLIYJVEZYRVDCm010UHxA" target="_blank" rel="noopener" data-i18n="see">Ver</a></li>
         </ul>
+        </div></details>
       </article>
     </div>
   </div>
@@ -983,7 +1048,7 @@ const EXPS=[
   specs:[["dur","3–4 h"],["alt",{es:"Clase I",en:"Class I"}],["lvl",{es:"Sin experiencia previa",en:"No experience needed"}],["season",{es:"Septiembre a mayo",en:"September to May"}],["age",{es:"Desde 10 años acompañado",en:"From age 10 with an adult"}],["ratio","1:6"]],
   inc:{es:["Kayak, casco, chaleco salvavidas, remo y neopreno si aplica"],en:["Kayak, helmet, life jacket, paddle and wetsuit if needed"]},
   price:{es:"$95.000",en:"CLP 95,000"}},
- {id:"PIR",n:40000,cats:["verano","familia"],tag:{es:"Bosque nativo",en:"Native forest"},
+ {id:"PIR",img:"pirinel.jpg",n:40000,cats:["verano","familia"],tag:{es:"Bosque nativo",en:"Native forest"},
   name:{es:"Trekking Parque Nativo Pirinel",en:"Pirinel Native Park Trek"},
   desc:{es:"Sendero familiar por bosque nativo junto a Choshuenco, sin exigencia técnica.",en:"Easy family trail through native forest near Choshuenco."},
   specs:[["dur","4 h"],["alt",{es:"6–8 km · +80–150 m",en:"6–8 km · +80–150 m"}],["lvl",{es:"Básico familiar",en:"Easy, family"}],["season",{es:"Septiembre a abril",en:"September to April"}],["age",{es:"Desde 5 años",en:"From age 5"}],["min",{es:"3 personas",en:"3 people"}]],
@@ -993,7 +1058,7 @@ const EXPS=[
 const LBL={es:{dur:"Duración",alt:"Altitud / tramo",lvl:"Nivel",season:"Temporada",min:"Mínimo",age:"Edad",ratio:"Guía : pax",price:"Por persona",from:"Desde",inc:"Detalle",ask:"Consultar por WhatsApp",askshort:"Consultar"},
            en:{dur:"Duration",alt:"Altitude / section",lvl:"Level",season:"Season",min:"Minimum",age:"Age",ratio:"Guide : guests",price:"Per person",from:"From",inc:"Details",ask:"Ask on WhatsApp",askshort:"Ask"}};
 const T={en:{
- nav_exp:"Experiences",m_exp5:"Outdoor education",m_nos5:"Our team",
+ nav_exp:"Experiences",v_h:"Volcanic alert",v_p:"SERNAGEOMIN monitors the Mocho-Choshuenco complex and publishes its technical alert. Check it before heading into the mountains.",v_l:"See the current technical alert (SERNAGEOMIN)",al_g:"Green",al_y:"Yellow",al_o:"Orange",al_r:"Red",ref_eyebrow:"Responsible tourism",ref_h:"References that guide our work",ref1t:"Global Code of Ethics for Tourism",ref1:"UN Tourism · 10 principles for responsible, sustainable and accessible tourism.",ref2t:"Good Practice Manual for Tour Operators",ref2:"SERNATUR · economic, socio-cultural and environmental good practices.",ref3t:"Volcanic technical alert",ref3:"SERNAGEOMIN · current alert status for the Mocho-Choshuenco complex.",ref_go:"Open",m_des8:"Volcanic alert",m_exp5:"Outdoor education",m_nos5:"Our team",
  edu_eyebrow:"Outdoor education",edu_h2:"Training the next generation of the mountains",
  edu_lead:"Rivers, lakes, forests and snow are classrooms too. We design educational programs for children and teenagers that combine technique, safety, teamwork and a bond with the land.",
  edu_p:"Our bet is simple: those who learn to know, enjoy and care for the mountains when young will be the ones who protect them tomorrow.",
@@ -1031,7 +1096,7 @@ nav_seg:"Safety",nav_terr:"The area",nav_nos:"About",nav_con:"Contact",
  exp_note:"Prices in Chilean pesos per person, VAT included. Subject to guide availability and weather and volcanic conditions. Residents of Panguipulli, Los Lagos and Futrono get preferential prices on selected programs.",
  seg_eyebrow:"Safety and guides",seg_h2:"Who guides you on the mountain",reg_label:"Registration",reg_role:"Mountain Guide (Media Montaña)",
  leader_bio:"Born and raised in Choshuenco, at the foot of Mocho-Choshuenco. He has guided on volcanoes, glaciers, rivers and lakes in southern Chile for more than ten years, and founded Wechuntu to share this land with professional safety standards.",
- c1:"Mountain Guide (Media Montaña), registration No. 37028",c2:"Rafting Guide level III",c3:"Sea kayak guide",c4:"Remote-area first aid",c5:"Swiftwater rescue",c6:"Snow science and avalanche rescue",c7:"Leave No Trace Master Educator, NOLS",
+ c1:"Mountain Guide (Media Montaña), registration No. 37028",c2:"Rafting Guide level III",c3:"Kayak touring guide level II",c4:"Wilderness First Responder (recertified 2025)",c5b:"Leave No Trace Master",c6k:"Avalanche",c6b:"Avalanche training REC+1",c7k:"Rescue",c7b:"Swiftwater rescue",cf_h:"Technical and sports training",ca_h:"Academic background",a1:"History and Social Sciences teacher",a2:"Master in Government, Management and Regional Development",a3:"Diploma in Sustainable Tourism, University of Salamanca",a4:"Advanced Diploma in Political Education",a5:"Localising the SDGs in Latin America and the Caribbean (ILPES, 2025)",c5:"Swiftwater rescue",c6:"Snow science and avalanche rescue",c7:"Leave No Trace Master Educator, NOLS",
  k1t:"SERNATUR registered company No. 108568",k1:"Operating under Law 20.423, Decree No. 19 and Chilean standards NCh2951 (mountain), NCh2991 (rafting) and NCh2996 (kayak).",
  k2t:"Daily weather and volcano check",k2:"We follow SERNAGEOMIN's volcanic alert level. If conditions are unsafe, we reschedule at no cost or refund your deposit.",
  k3t:"Radio and satellite phone on every trip",k3:"Radio, satellite phone, wilderness first-aid kit and protocols coordinated with firefighters, ambulance services and Andean Rescue.",
@@ -1245,6 +1310,83 @@ $("pl-send").onclick=()=>{
 /* ===== Blog =====
    Para publicar: copia un bloque {...} al inicio de POSTS, cambia id, fecha, imagen (carpeta img/) y textos. */
 const POSTS=[
+ {id:"educacion-aire-libre",date:"2026-10-22",img:"e-kayak-remos.jpg",cat:{es:"Educación",en:"Education"},
+  title:{es:"Educación al aire libre: por qué la montaña también es una sala de clases",en:"Outdoor education: why the mountains are a classroom too"},
+  excerpt:{es:"Autonomía, trabajo en equipo y vínculo con el territorio: lo que niños y jóvenes aprenden en el río, el lago y la nieve.",en:"Autonomy, teamwork and a bond with the land: what children and young people learn on rivers, lakes and snow."},
+  body:{es:`<p>La educación al aire libre usa la naturaleza como espacio de aprendizaje. No se trata solo de aprender a remar, pedalear o esquiar: se trata de formar personas capaces de conocer, disfrutar y cuidar su entorno.</p>
+<h4>Qué aprenden niños y jóvenes</h4><ul><li><b>Autonomía y confianza:</b> resolver desafíos reales con apoyo de un monitor.</li><li><b>Gestión del riesgo:</b> leer el clima, el agua y el terreno, y tomar buenas decisiones.</li><li><b>Trabajo en equipo:</b> en una balsa, una cordada o un grupo de kayak, todos dependen de todos.</li><li><b>Vínculo con la naturaleza:</b> lo que se conoce y se disfruta, se cuida.</li></ul>
+<h4>Por qué importa en el territorio</h4><p>Muchos niños y jóvenes crecen junto al volcán, el lago y el río sin haberlos recorrido. Darles acceso a su propio territorio fortalece la identidad local, abre caminos hacia oficios como guía o instructor y forma a quienes cuidarán el destino en el futuro.</p>
+<h4>Cómo lo hacemos</h4><ul><li>Progresión técnica según edad y nivel.</li><li>Monitores con formación pedagógica y técnica, y protocolos de seguridad en cada salida.</li><li>Kayak de travesía, montañismo, bicicleta de montaña, escalada deportiva y esquí.</li><li>No Deje Rastro como parte de cada jornada.</li></ul>
+<p>Esta mirada viene de la experiencia de la Escuela de Agua y Montaña en Choshuenco, Punahue y Paillahuinte, donde también creamos su escuela de esquí. Si eres colegio, municipio u organización, escríbenos y diseñamos un programa a la medida de tu grupo.</p>`,
+  en:`<p>Outdoor education uses nature as a place to learn. It's not only about learning to paddle, ride or ski: it's about raising people who can know, enjoy and care for their surroundings.</p>
+<h4>What children and young people learn</h4><ul><li><b>Autonomy and confidence:</b> solving real challenges with an instructor's support.</li><li><b>Risk management:</b> reading the weather, water and terrain, and making good decisions.</li><li><b>Teamwork:</b> on a raft, a rope team or a kayak group, everyone depends on everyone.</li><li><b>A bond with nature:</b> what we know and enjoy, we protect.</li></ul>
+<h4>Why it matters locally</h4><p>Many children grow up next to the volcano, the lake and the river without ever exploring them. Giving them access to their own land strengthens local identity, opens paths to careers such as guide or instructor, and trains those who will care for the destination in the future.</p>
+<h4>How we do it</h4><ul><li>Technical progression by age and level.</li><li>Instructors with teaching and technical training, and safety protocols on every outing.</li><li>Kayak touring, mountaineering, mountain biking, sport climbing and skiing.</li><li>Leave No Trace as part of every day.</li></ul>
+<p>This approach comes from the Water and Mountain School in Choshuenco, Punahue and Paillahuinte, where we also created its ski school. If you are a school, municipality or organisation, message us and we'll design a program for your group.</p>`}},
+ {id:"compromiso-territorial",date:"2026-10-22",img:"nosotros.jpg",cat:{es:"Territorio",en:"Local roots"},
+  title:{es:"Turismo con raíces: nuestro compromiso con el territorio y la economía local",en:"Tourism with roots: our commitment to the land and the local economy"},
+  excerpt:{es:"Cómo entendemos el turismo sustentable: empleo local, encadenamiento con otros emprendedores y cuidado del destino.",en:"How we understand sustainable tourism: local jobs, links with other businesses and care for the destination."},
+  body:{es:`<p>Wechuntu nació en Choshuenco y crece con Choshuenco. Para nosotros, el turismo solo tiene sentido si deja valor en el territorio y ayuda a cuidarlo.</p>
+<h4>Economía local</h4><ul><li>Recomendamos y trabajamos con alojamientos, restaurantes, ferias y cafeterías del destino.</li><li>Trabajamos con guías y monitores del territorio.</li><li>Los residentes de Panguipulli, Los Lagos y Futrono acceden a precios preferenciales en programas seleccionados.</li></ul>
+<h4>Turismo sustentable</h4><ul><li>Grupos pequeños y salidas planificadas según el clima y las condiciones de la montaña.</li><li>Principios de No Deje Rastro en cada actividad.</li><li>Empresa registrada en SERNATUR, con guías certificados y seguro de accidentes.</li></ul>
+<h4>Desarrollo territorial</h4><p>Participamos en agrupaciones y mesas de trabajo del turismo local, porque creemos que un destino se construye de forma colaborativa: entre emprendedores, comunidades, instituciones y visitantes.</p>
+<h4>Referencias que nos orientan</h4><p>El <a href="https://www.untourism.int/es/codigo-etico-mundial-para-el-turismo" target="_blank" rel="noopener">Código Ético Mundial para el Turismo</a> de ONU Turismo y el <a href="https://portalserviciosturisticos.sernatur.cl/wp-content/uploads/2023/11/Manual-de-buenas-practicas-operadores.pdf" target="_blank" rel="noopener">Manual de Buenas Prácticas para Tour Operadores</a> de SERNATUR son guías que tomamos como referencia para un turismo responsable.</p>`,
+  en:`<p>Wechuntu was born in Choshuenco and grows with Choshuenco. For us, tourism only makes sense if it leaves value in the area and helps protect it.</p>
+<h4>Local economy</h4><ul><li>We recommend and work with local lodgings, restaurants, markets and cafés.</li><li>We work with local guides and instructors.</li><li>Residents of Panguipulli, Los Lagos and Futrono get preferential prices on selected programs.</li></ul>
+<h4>Sustainable tourism</h4><ul><li>Small groups and trips planned around weather and mountain conditions.</li><li>Leave No Trace principles on every activity.</li><li>SERNATUR-registered company with certified guides and accident insurance.</li></ul>
+<h4>Local development</h4><p>We take part in local tourism associations and working groups, because a destination is built together: businesses, communities, institutions and visitors.</p>
+<h4>Guiding references</h4><p>UN Tourism's <a href="https://www.untourism.int/es/codigo-etico-mundial-para-el-turismo" target="_blank" rel="noopener">Global Code of Ethics for Tourism</a> and SERNATUR's <a href="https://portalserviciosturisticos.sernatur.cl/wp-content/uploads/2023/11/Manual-de-buenas-practicas-operadores.pdf" target="_blank" rel="noopener">Good Practice Manual for Tour Operators</a> are references we follow for responsible tourism.</p>`}},
+ {id:"patrimonio-natural",date:"2026-10-22",img:"pirinel.jpg",cat:{es:"Patrimonio natural",en:"Natural heritage"},
+  title:{es:"Bosque, volcanes y agua: el patrimonio natural del destino Mocho Choshuenco",en:"Forest, volcanoes and water: the natural heritage of the Mocho Choshuenco destination"},
+  excerpt:{es:"Bosque templado lluvioso, Reserva de la Biosfera y una cuenca que nace en Argentina y llega al Pacífico.",en:"Temperate rainforest, a Biosphere Reserve and a river basin that starts in Argentina and reaches the Pacific."},
+  body:{es:`<p>El destino Mocho Choshuenco reúne en pocos kilómetros glaciares, volcanes, ríos, lagos y uno de los ecosistemas forestales más singulares del planeta.</p>
+<h4>Bosque templado lluvioso de los Andes australes</h4><p>La selva valdiviana es uno de los pocos bosques templados lluviosos del mundo y tiene una alta proporción de especies que solo existen aquí. En sus distintos pisos crecen coigües, raulíes, robles, ulmos y tepas, y en altura dan paso a los bosques de lenga. Es hogar del pudú, el monito del monte, el carpintero negro, el chucao y el huet-huet.</p>
+<h4>Reserva de la Biosfera</h4><p>En 2007 la UNESCO declaró la Reserva de la Biosfera <b>Bosques Templados Lluviosos de los Andes Australes</b>, que abarca sectores de las regiones de La Araucanía y Los Ríos. Su propósito es compatibilizar la conservación de estos bosques con el desarrollo de las comunidades que los habitan.</p>
+<h4>Una cuenca binacional</h4><p>El agua que ves en Choshuenco recorre un camino largo. La cuenca del río Valdivia nace en Argentina, en el lago Lácar, y cruza la cordillera por el río Hua Hum hasta el lago Pirihueico. Desde ahí sigue por el río Fuy y el río Llanquihue hasta el lago Panguipulli, continúa por el río Enco hacia el lago Riñihue y, por los ríos San Pedro y Calle-Calle, llega a Valdivia y al océano Pacífico.</p>
+<h4>El complejo volcánico</h4><p>El Mocho (2.422 m) y el Choshuenco (2.415 m) coronan el destino con glaciares que alimentan ríos y lagos todo el año.</p>
+<h4>Un patrimonio que se cuida entre todos</h4><p>Recorrer este territorio con guías locales, respetar los senderos y practicar No Deje Rastro es la mejor forma de disfrutarlo y asegurar que siga vivo para las próximas generaciones.</p>`,
+  en:`<p>Within a few kilometres, the Mocho Choshuenco destination brings together glaciers, volcanoes, rivers, lakes and one of the planet's most unique forest ecosystems.</p>
+<h4>Temperate rainforest of the southern Andes</h4><p>The Valdivian rainforest is one of the few temperate rainforests in the world, with a high share of species found nowhere else. Coigüe, raulí, roble, ulmo and tepa grow on its slopes, giving way to lenga forests higher up. It is home to the pudú, the monito del monte, the Magellanic woodpecker, the chucao and the huet-huet.</p>
+<h4>Biosphere Reserve</h4><p>In 2007 UNESCO designated the <b>Bosques Templados Lluviosos de los Andes Australes</b> Biosphere Reserve, covering parts of the La Araucanía and Los Ríos regions, to balance forest conservation with the development of local communities.</p>
+<h4>A binational basin</h4><p>The water you see in Choshuenco travels a long way. The Valdivia River basin starts in Argentina at Lake Lácar and crosses the Andes along the Hua Hum River to Lake Pirihueico. From there it follows the Fuy and Llanquihue rivers into Lake Panguipulli, then the Enco River to Lake Riñihue, and via the San Pedro and Calle-Calle rivers reaches Valdivia and the Pacific Ocean.</p>
+<h4>The volcanic complex</h4><p>Mocho (2,422 m) and Choshuenco (2,415 m) crown the destination with glaciers that feed rivers and lakes all year round.</p>
+<h4>A shared heritage</h4><p>Exploring with local guides, staying on trails and practising Leave No Trace is the best way to enjoy this land and keep it alive for future generations.</p>`}},
+ {id:"tips-viajero",date:"2026-10-22",img:"g-choshuenco.jpg",cat:{es:"Tips de viaje",en:"Travel tips"},
+  title:{es:"Tips para el viajero que llega a Choshuenco",en:"Tips for travellers coming to Choshuenco"},
+  excerpt:{es:"Efectivo, mejores meses, bicicleta, ríos protegidos y otros datos prácticos para aprovechar tu visita.",en:"Cash, best months, cycling, protected rivers and other practical tips for your visit."},
+  body:{es:`<p>Choshuenco es un pueblo pequeño entre el lago Panguipulli y el complejo volcánico Mocho-Choshuenco. Estos datos te ayudarán a planificar mejor tu viaje.</p>
+<h4>Trae efectivo</h4><p>En Choshuenco <b>no hay cajero automático</b>. Retira dinero antes de llegar y consulta a cada servicio sus formas de pago.</p>
+<h4>Los mejores meses</h4><p><b>Diciembre, marzo y abril</b> son meses ideales para actividades al aire libre: días largos, buen clima y menos visitantes que en la temporada más alta. En invierno, con nieve, la montaña ofrece raquetas y esquí.</p>
+<h4>Muévete en bicicleta</h4><p>El entorno cuenta con <b>cuatro reservas y parques</b> que se pueden recorrer y conectar en bicicleta. Es una forma tranquila de conocer el bosque, los lagos y los pueblos del destino.</p>
+<h4>Ríos protegidos</h4><p>Los ríos <b>Llanquihue y Enco</b> tienen medidas especiales de protección: en ellos rige la pesca con devolución obligatoria. Respeta las normas y cuida sus riberas.</p>
+<h4>Prepárate para el clima del sur</h4><ul><li>Lleva ropa por capas y una chaqueta impermeable, aun en verano.</li><li>Revisa el pronóstico y el estado del volcán antes de cada salida.</li><li>Lleva bloqueador y lentes de sol si vas a la nieve o al glaciar.</li></ul>
+<h4>Si sigues a Argentina</h4><p>El paso Hua Hum se cruza en barcaza por el lago Pirihueico desde Puerto Fuy. En verano y fines de semana largos conviene reservar con anticipación y llevar tu documentación al día.</p>
+<h4>Deja el lugar mejor de lo que lo encontraste</h4><p>Llévate tu basura, no hagas fuego fuera de los lugares habilitados y respeta la fauna. Pequeñas acciones hacen la diferencia en un destino tan frágil.</p>`,
+  en:`<p>Choshuenco is a small town between Lake Panguipulli and the Mocho-Choshuenco volcanic complex. These tips will help you plan your trip.</p>
+<h4>Bring cash</h4><p>There is <b>no ATM in Choshuenco</b>. Withdraw money before you arrive and check payment options with each business.</p>
+<h4>Best months</h4><p><b>December, March and April</b> are ideal for outdoor activities: long days, good weather and fewer visitors than in peak season. In winter, with snow, the mountains offer snowshoeing and skiing.</p>
+<h4>Get around by bike</h4><p>The area has <b>four reserves and parks</b> that you can explore and link up by bike, a relaxed way to discover the forest, lakes and villages.</p>
+<h4>Protected rivers</h4><p>The <b>Llanquihue and Enco</b> rivers have special protection: catch and release is mandatory. Follow the rules and look after their banks.</p>
+<h4>Be ready for southern weather</h4><ul><li>Pack layers and a waterproof jacket, even in summer.</li><li>Check the forecast and the volcano status before every outing.</li><li>Bring sunscreen and sunglasses for snow or glacier trips.</li></ul>
+<h4>Heading to Argentina</h4><p>The Hua Hum pass is crossed by ferry over Lake Pirihueico from Puerto Fuy. In summer and on long weekends, book ahead and have your documents in order.</p>
+<h4>Leave it better than you found it</h4><p>Take your rubbish with you, only light fires where allowed and respect wildlife. Small actions make a difference in such a fragile destination.</p>`}},
+ {id:"pesca-recreativa",date:"2026-10-22",img:"g-rafting-rio.jpg",cat:{es:"Temporada",en:"Season"},
+  title:{es:"Temporada de pesca recreativa 2026-2027 en Los Ríos: lo que debes saber",en:"2026-2027 recreational fishing season in Los Ríos: what you need to know"},
+  excerpt:{es:"Fechas, licencia, límites de captura y los ríos con pesca con devolución obligatoria en el entorno de Choshuenco.",en:"Dates, licence, bag limits and the catch-and-release rivers around Choshuenco."},
+  body:{es:`<p>La temporada de pesca recreativa de salmónidos en la Región de Los Ríos va del <b>9 de octubre de 2026 al 30 de mayo de 2027</b>. Antes de lanzar la primera línea, revisa estas reglas básicas.</p>
+<h4>Licencia de pesca</h4><ul><li>Es obligatoria y debes portarla siempre. Se compra en línea en <a href="https://pescarecreativa.sernapesca.cl" target="_blank" rel="noopener">pescarecreativa.sernapesca.cl</a> y puedes mostrarla en el celular.</li><li>Hay licencias semanales, mensuales y anuales, para chilenos, residentes y extranjeros.</li><li>Están exentos los menores de 12 años, los mayores de 65 (chilenos y residentes) y las personas inscritas en el Registro Nacional de la Discapacidad.</li></ul>
+<h4>Reglas generales en la región</h4><ul><li>Máximo 3 piezas o 15 kg por pescador al día, lo que ocurra primero.</li><li>Una caña por persona y señuelos artificiales.</li><li>Prohibido pescar entre las 22:00 y las 06:00.</li><li>Calar redes en ríos y lagos es delito. Denuncia al 133 (Carabineros).</li></ul>
+<h4>Ríos con pesca con devolución</h4><p>En los ríos <b>Llanquihue, Enco y San Pedro</b> y sus tributarios rige la pesca con devolución y solo se permite mosca o señuelo simple. En el río Llanquihue la medida incluye el tramo desde la junta de los ríos Neltume y Fuy hasta su desembocadura, y los primeros 1.000 metros dentro del lago Panguipulli. Revisa el detalle vigente en Sernapesca antes de salir.</p>
+<h4>Buenas prácticas de devolución</h4><ul><li>Usa anzuelos sin rebaba o aplasta la rebaba con un alicate.</li><li>Moja tus manos antes de tocar el pez y evita apretarlo.</li><li>Mantenlo el menor tiempo posible fuera del agua y libéralo de frente a la corriente.</li><li>Las especies nativas se devuelven siempre de inmediato.</li></ul>
+<h4>Alerta didymo</h4><p>Antes y después de cada jornada, retira restos de algas de botas, waders y equipos, lávalos con detergente y déjalos secar completamente. Así evitas trasladar esta microalga invasora entre cuencas.</p>
+<p>Fuente: <a href="https://www.sernapesca.cl/noticias/en-la-region-de-los-rios-se-adelanto-la-temporada-de-pesca-recreativa-para-octubre/" target="_blank" rel="noopener">Sernapesca</a>.</p>`,
+  en:`<p>The salmonid recreational fishing season in the Los Ríos Region runs from <b>9 October 2026 to 30 May 2027</b>. Before your first cast, check these basic rules.</p>
+<h4>Fishing licence</h4><ul><li>It is mandatory and you must carry it at all times. Buy it online at <a href="https://pescarecreativa.sernapesca.cl" target="_blank" rel="noopener">pescarecreativa.sernapesca.cl</a> and show it on your phone.</li><li>Weekly, monthly and annual licences are available for Chileans, residents and foreigners.</li><li>Children under 12, Chileans and residents over 65, and people in the National Disability Registry are exempt.</li></ul>
+<h4>General regional rules</h4><ul><li>Up to 3 fish or 15 kg per angler per day, whichever comes first.</li><li>One rod per person and artificial lures.</li><li>No fishing between 22:00 and 06:00.</li><li>Setting nets in rivers and lakes is a crime. Report it on 133 (Carabineros).</li></ul>
+<h4>Catch-and-release rivers</h4><p>On the <b>Llanquihue, Enco and San Pedro</b> rivers and their tributaries, catch and release applies and only fly or single lure is allowed. On the Llanquihue this covers the stretch from the Neltume–Fuy confluence to its mouth, plus the first 1,000 metres into Lake Panguipulli. Check the current details with Sernapesca before you go.</p>
+<h4>Good release practice</h4><ul><li>Use barbless hooks or flatten the barb.</li><li>Wet your hands before handling the fish and don't squeeze it.</li><li>Keep it out of the water as little as possible and release it facing the current.</li><li>Native species are always released immediately.</li></ul>
+<h4>Didymo alert</h4><p>Before and after each day, remove algae from boots, waders and gear, wash them with detergent and let them dry completely, so you don't carry this invasive microalga between basins.</p>
+<p>Source: <a href="https://www.sernapesca.cl/noticias/en-la-region-de-los-rios-se-adelanto-la-temporada-de-pesca-recreativa-para-octubre/" target="_blank" rel="noopener">Sernapesca</a>.</p>`}},
  {id:"que-llevar",date:"2026-10-21",img:"g-trekking.jpg",cat:{es:"Preparación",en:"Preparation"},
   title:{es:"Qué llevar a una salida de montaña en el destino Mocho Choshuenco",en:"What to pack for a mountain day in the Mocho Choshuenco destination"},
   excerpt:{es:"El clima del sur cambia rápido. Así se prepara una mochila segura y cómoda para el volcán, el glaciar o el bosque.",en:"Southern weather changes fast. Here's how to pack a safe, comfortable daypack for the volcano, the glacier or the forest."},
