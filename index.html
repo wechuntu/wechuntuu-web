@@ -272,7 +272,7 @@ input,select,textarea{font:inherit;font-weight:400;color:var(--ink);background:v
 
 /* Footer */
 footer{background:var(--hero-bg);color:var(--hero-dim);padding-block:44px 90px;font-size:.85rem}
-footer .wrap{display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:start}
+footer .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:start}
 footer img{height:56px;width:auto}
 footer .meta{display:grid;gap:6px;font-family:var(--f-mono);font-size:.78rem}
 footer .meta b{color:var(--hero-ink);font-weight:500}
@@ -424,6 +424,15 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
 .ref b{font-family:var(--f-display);font-size:1rem;line-height:1.25}
 .ref small{color:var(--ink-2);font-size:.85rem}
 .ref em{font-style:normal;font-family:var(--f-display);font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink)}
+.creds2{display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:start;margin-top:22px;background:var(--card);border:1px solid var(--line);padding:18px}
+@media (max-width:480px){.creds2{grid-template-columns:96px 1fr;gap:14px;padding:14px}}
+.creds2 .seal img{width:100%;height:auto;display:block;border-radius:6px;background:#fff}
+.conaf{display:grid;gap:6px}
+.conaf h4{font-family:var(--f-display);font-size:1.1rem;margin:0}
+.conaf p:not(.eyebrow){color:var(--ink-2);font-size:.9rem;margin:0}
+.conaf .verify{margin-top:2px}
+footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;padding:2px}
+@media (max-width:620px){footer .wrap{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -695,8 +704,18 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
           <li><b data-i18n="k3t">Radio y teléfono satelital en cada salida</b></li>
           <li><b data-i18n="k4t">Grupos pequeños</b></li>
           <li><b data-i18n="k6t">Seguro de accidentes incluido</b></li>
+          <li><b data-i18n="k7t">Operador con permiso vigente de CONAF</b></li>
         </ul>
-        <a class="verify" href="https://serviciosturisticos.sernatur.cl" target="_blank" rel="noopener" data-i18n="k1link">Verificar en servicios registrados SERNATUR</a>
+        <div class="creds2">
+          <a class="seal" href="https://serviciosturisticos.sernatur.cl" target="_blank" rel="noopener" aria-label="Verificar registro SERNATUR N° 108568"><img src="img/sello-sernatur.png" alt="Sello Servicio Turístico Registrado SERNATUR, Registro N° 108568" width="360" height="360" loading="lazy"></a>
+          <div class="conaf">
+            <p class="eyebrow" data-i18n="cn_eyebrow">Áreas protegidas</p>
+            <h4 data-i18n="cn_h">Operador autorizado por CONAF</h4>
+            <p data-i18n="cn_p">Contamos con permiso vigente de CONAF para guiado y senderismo en la Reserva Nacional Mocho Choshuenco, el Parque Nacional Villarrica (sector sur) y el Parque Nacional Alerce Costero.</p>
+            <a class="verify" href="https://parqueslosrios.cl/sitio/rn-mocho-choshuenco/" target="_blank" rel="noopener" data-i18n="cn_l">Verificar en el listado de operadores autorizados de CONAF</a>
+            <a class="verify" href="https://serviciosturisticos.sernatur.cl" target="_blank" rel="noopener" data-i18n="k1link">Verificar en servicios registrados SERNATUR</a>
+          </div>
+        </div>
         <img class="photo" src="img/seguridad.jpg" alt="Charla de seguridad antes de iniciar la salida" loading="lazy" width="1100" height="734">
         <p class="photo-cap" data-i18n="seg_cap">Charla técnica y de seguridad antes de cada salida.</p>
       </div>
@@ -984,7 +1003,9 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
       <span><b>Wechuntu Outdoor SpA</b></span>
       <span>Independencia 1, Choshuenco, Región de Los Ríos, Chile</span>
       <span data-i18n="ft1">Registro SERNATUR N° 108568</span>
+      <span data-i18n="ft4">Operador autorizado por CONAF en áreas protegidas</span>
     </div>
+    <a class="ft-seal" href="https://serviciosturisticos.sernatur.cl" target="_blank" rel="noopener" aria-label="Verificar registro SERNATUR"><img src="img/sello-sernatur.png" alt="Sello SERNATUR Registro N° 108568" width="360" height="360" loading="lazy"></a>
   </div>
 </footer>
 
@@ -1058,7 +1079,7 @@ const EXPS=[
 const LBL={es:{dur:"Duración",alt:"Altitud / tramo",lvl:"Nivel",season:"Temporada",min:"Mínimo",age:"Edad",ratio:"Guía : pax",price:"Por persona",from:"Desde",inc:"Detalle",ask:"Consultar por WhatsApp",askshort:"Consultar"},
            en:{dur:"Duration",alt:"Altitude / section",lvl:"Level",season:"Season",min:"Minimum",age:"Age",ratio:"Guide : guests",price:"Per person",from:"From",inc:"Details",ask:"Ask on WhatsApp",askshort:"Ask"}};
 const T={en:{
- nav_exp:"Experiences",v_h:"Volcanic alert",v_p:"SERNAGEOMIN monitors the Mocho-Choshuenco complex and publishes its technical alert. Check it before heading into the mountains.",v_l:"See the current technical alert (SERNAGEOMIN)",al_g:"Green",al_y:"Yellow",al_o:"Orange",al_r:"Red",ref_eyebrow:"Responsible tourism",ref_h:"References that guide our work",ref1t:"Global Code of Ethics for Tourism",ref1:"UN Tourism · 10 principles for responsible, sustainable and accessible tourism.",ref2t:"Good Practice Manual for Tour Operators",ref2:"SERNATUR · economic, socio-cultural and environmental good practices.",ref3t:"Volcanic technical alert",ref3:"SERNAGEOMIN · current alert status for the Mocho-Choshuenco complex.",ref_go:"Open",m_des8:"Volcanic alert",m_exp5:"Outdoor education",m_nos5:"Our team",
+ nav_exp:"Experiences",k7t:"Operator with a current CONAF permit",cn_eyebrow:"Protected areas",cn_h:"CONAF-authorised operator",cn_p:"We hold a current CONAF permit for guiding and hiking in the Mocho Choshuenco National Reserve, Villarrica National Park (southern sector) and Alerce Costero National Park.",cn_l:"Check CONAF's list of authorised operators",ft4:"CONAF-authorised operator in protected areas",v_h:"Volcanic alert",v_p:"SERNAGEOMIN monitors the Mocho-Choshuenco complex and publishes its technical alert. Check it before heading into the mountains.",v_l:"See the current technical alert (SERNAGEOMIN)",al_g:"Green",al_y:"Yellow",al_o:"Orange",al_r:"Red",ref_eyebrow:"Responsible tourism",ref_h:"References that guide our work",ref1t:"Global Code of Ethics for Tourism",ref1:"UN Tourism · 10 principles for responsible, sustainable and accessible tourism.",ref2t:"Good Practice Manual for Tour Operators",ref2:"SERNATUR · economic, socio-cultural and environmental good practices.",ref3t:"Volcanic technical alert",ref3:"SERNAGEOMIN · current alert status for the Mocho-Choshuenco complex.",ref_go:"Open",m_des8:"Volcanic alert",m_exp5:"Outdoor education",m_nos5:"Our team",
  edu_eyebrow:"Outdoor education",edu_h2:"Training the next generation of the mountains",
  edu_lead:"Rivers, lakes, forests and snow are classrooms too. We design educational programs for children and teenagers that combine technique, safety, teamwork and a bond with the land.",
  edu_p:"Our bet is simple: those who learn to know, enjoy and care for the mountains when young will be the ones who protect them tomorrow.",
@@ -1357,7 +1378,7 @@ const POSTS=[
   body:{es:`<p>Choshuenco es un pueblo pequeño entre el lago Panguipulli y el complejo volcánico Mocho-Choshuenco. Estos datos te ayudarán a planificar mejor tu viaje.</p>
 <h4>Trae efectivo</h4><p>En Choshuenco <b>no hay cajero automático</b>. Retira dinero antes de llegar y consulta a cada servicio sus formas de pago.</p>
 <h4>Los mejores meses</h4><p><b>Diciembre, marzo y abril</b> son meses ideales para actividades al aire libre: días largos, buen clima y menos visitantes que en la temporada más alta. En invierno, con nieve, la montaña ofrece raquetas y esquí.</p>
-<h4>Muévete en bicicleta</h4><p>El entorno cuenta con <b>cuatro reservas y parques</b> que se pueden recorrer y conectar en bicicleta. Es una forma tranquila de conocer el bosque, los lagos y los pueblos del destino.</p>
+<h4>Muévete en bicicleta</h4><p>El entorno cuenta con <b>cuatro reservas y parques</b> que se pueden recorrer y conectar en bicicleta: el Parque Neltume, el Parque Pirinel, la Reserva Nacional Mocho Choshuenco y la Reserva Biológica Huilo Huilo. Es una forma tranquila de conocer el bosque, los lagos y los pueblos del destino.</p>
 <h4>Ríos protegidos</h4><p>Los ríos <b>Llanquihue y Enco</b> tienen medidas especiales de protección: en ellos rige la pesca con devolución obligatoria. Respeta las normas y cuida sus riberas.</p>
 <h4>Prepárate para el clima del sur</h4><ul><li>Lleva ropa por capas y una chaqueta impermeable, aun en verano.</li><li>Revisa el pronóstico y el estado del volcán antes de cada salida.</li><li>Lleva bloqueador y lentes de sol si vas a la nieve o al glaciar.</li></ul>
 <h4>Si sigues a Argentina</h4><p>El paso Hua Hum se cruza en barcaza por el lago Pirihueico desde Puerto Fuy. En verano y fines de semana largos conviene reservar con anticipación y llevar tu documentación al día.</p>
@@ -1365,7 +1386,7 @@ const POSTS=[
   en:`<p>Choshuenco is a small town between Lake Panguipulli and the Mocho-Choshuenco volcanic complex. These tips will help you plan your trip.</p>
 <h4>Bring cash</h4><p>There is <b>no ATM in Choshuenco</b>. Withdraw money before you arrive and check payment options with each business.</p>
 <h4>Best months</h4><p><b>December, March and April</b> are ideal for outdoor activities: long days, good weather and fewer visitors than in peak season. In winter, with snow, the mountains offer snowshoeing and skiing.</p>
-<h4>Get around by bike</h4><p>The area has <b>four reserves and parks</b> that you can explore and link up by bike, a relaxed way to discover the forest, lakes and villages.</p>
+<h4>Get around by bike</h4><p>The area has <b>four reserves and parks</b> you can explore and link up by bike (Neltume Park, Pirinel Park, Mocho Choshuenco National Reserve and Huilo Huilo Biological Reserve), a relaxed way to discover the forest, lakes and villages.</p>
 <h4>Protected rivers</h4><p>The <b>Llanquihue and Enco</b> rivers have special protection: catch and release is mandatory. Follow the rules and look after their banks.</p>
 <h4>Be ready for southern weather</h4><ul><li>Pack layers and a waterproof jacket, even in summer.</li><li>Check the forecast and the volcano status before every outing.</li><li>Bring sunscreen and sunglasses for snow or glacier trips.</li></ul>
 <h4>Heading to Argentina</h4><p>The Hua Hum pass is crossed by ferry over Lake Pirihueico from Puerto Fuy. In summer and on long weekends, book ahead and have your documents in order.</p>
