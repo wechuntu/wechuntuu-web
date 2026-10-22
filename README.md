@@ -6,3 +6,5 @@ Sitio estático de Wechuntu Outdoor SpA (wechuntu.cl). Publicado en Netlify desd
 - `img/`: fotografías, video y logos.
 
 Para sumar un artículo al blog, editar el arreglo `POSTS` en `index.html`.
+
+Última actualización: 22 de octubre de 2026.
