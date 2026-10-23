@@ -415,7 +415,7 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
 .leader-head img.leader-pic{width:72px;height:72px;border-radius:50%;object-fit:cover}
 /* Referencias */
 .refs{margin-top:48px}
-.refs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.refs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
 @media (max-width:860px){.refs-grid{grid-template-columns:1fr}}
 .ref{display:grid;grid-template-columns:52px 1fr;grid-template-rows:auto auto;gap:6px 14px;align-items:start;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--orange);padding:18px;text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .15s}
 .ref:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
@@ -433,6 +433,705 @@ dialog.post-dlg::backdrop{background:rgba(0,0,0,.65)}
 .conaf .verify{margin-top:2px}
 footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;padding:2px}
 @media (max-width:620px){footer .wrap{grid-template-columns:1fr}}
+.member-full{align-items:start}
+.av-ini{font-family:var(--f-display);font-weight:700;font-size:1.3rem;color:var(--orange-ink)}
+.mcerts{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+.mcerts li{font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--ink-2)}
+/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: none;
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* layers control */
+
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: none;
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: none;
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+
+/* Default icon URLs */
+.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
+	background-image: none;
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+/* Base styles for the element that has a tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+/* Directions */
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+/* Printing */
+
+@media print {
+	/* Prevent printers from removing background-images of controls. */
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+/* Mapa parques */
+.parks{margin-bottom:28px;background:var(--card);border:1px solid var(--line);padding:22px}
+.parks-head{display:grid;gap:6px;margin-bottom:16px}
+.parks-head p{color:var(--ink-2);font-size:.93rem;margin:0}
+.parks-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.parks-grid{grid-template-columns:1fr}}
+.pmap-wrap{position:relative}
+.pmap{height:420px;background:var(--paper-2);border:1px solid var(--line);position:relative;z-index:0}
+@media (max-width:560px){.pmap{height:320px}}
+.pmap-fb{position:absolute;inset:0;display:grid;place-content:center;color:var(--ink-2);font-size:.9rem;margin:0;text-align:center;padding:16px}
+.plist{list-style:none;margin:0;padding:0;display:grid}
+.plist li{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.plist li:first-child{padding-top:0}
+.plist b{font-size:.98rem}
+.plist small{display:block;color:var(--ink-2);font-size:.84rem;margin-top:2px}
+.pin{width:28px;height:28px;border-radius:50%;background:var(--orange);color:var(--on-orange);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:.85rem;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.pin.base{background:var(--hero-bg);color:#fff;border:2px solid var(--orange)}
+.pin.peak{background:#fff;color:#1d1b1a;border:2px solid #1d1b1a;font-size:.7rem}
+.plinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.plinks a{font-family:var(--f-display);font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);padding:4px 9px;border-radius:2px}
+.plinks a:first-child{background:var(--ink);color:var(--paper)}
+.plist li.on{background:linear-gradient(90deg,rgba(255,102,51,.08),transparent)}
+.leaflet-container{font-family:var(--f-body)}
+.leaflet-popup-content b{display:block;margin-bottom:4px}
+.leaflet-popup-content a{color:#c7431a}
+.mk{background:none;border:0}
+/* Medios */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.news{display:grid;gap:8px;align-content:start;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--orange);padding:18px;text-decoration:none;color:var(--ink);transition:transform .15s}
+.news:hover{transform:translateY(-2px)}
+.nw-src{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--orange-ink)}
+.news b{font-family:var(--f-display);font-size:1.02rem;line-height:1.3}
+.news small{color:var(--ink-2);font-size:.86rem}
+.news em{font-style:normal;font-family:var(--f-display);font-weight:700;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin-top:4px}
 </style>
 </head>
 <body>
@@ -443,11 +1142,11 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
     <a href="#inicio" aria-label="Wechuntu Outdoor, inicio"><img src="data:image/png;base64,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" alt="Wechuntu, explora tus límites" width="520" height="187"></a>
     <nav class="mainnav" id="mainnav" aria-label="Principal">
       <div class="dd"><button type="button" aria-expanded="false" aria-controls="dd-nos"><span data-i18n="nav_nos">Nosotros</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
-        <div class="dd-menu" id="dd-nos"><a href="#nosotros"><span data-i18n="m_nos1">Quiénes somos</span></a><a href="#pilares"><span data-i18n="m_nos2">Nuestros pilares</span></a><a href="#seguridad"><span data-i18n="m_nos3">Quién te guía</span></a><a href="#equipo"><span data-i18n="m_nos5">Nuestro equipo</span></a><a href="#resenas"><span data-i18n="m_nos4">Reseñas</span></a></div></div>
+        <div class="dd-menu" id="dd-nos"><a href="#nosotros"><span data-i18n="m_nos1">Quiénes somos</span></a><a href="#pilares"><span data-i18n="m_nos2">Nuestros pilares</span></a><a href="#seguridad"><span data-i18n="m_nos3">Quién te guía</span></a><a href="#equipo"><span data-i18n="m_nos5">Nuestro equipo</span></a><a href="#resenas"><span data-i18n="m_nos4">Reseñas</span></a><a href="#medios"><span data-i18n="m_nos6">En los medios</span></a></div></div>
       <div class="dd"><button type="button" aria-expanded="false" aria-controls="dd-exp"><span data-i18n="nav_exp">Experiencias</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
         <div class="dd-menu" id="dd-exp"><a href="#experiencias"><span data-i18n="m_exp1">Todas las experiencias</span></a><a href="#a-medida"><span data-i18n="m_exp2">Paquete a tu medida</span></a><a href="#terreno"><span data-i18n="m_exp3">Galería en terreno</span></a><a href="#educacion"><span data-i18n="m_exp5">Educación al aire libre</span></a><a href="#reservar"><span data-i18n="m_exp4">Cómo reservar</span></a></div></div>
       <div class="dd"><button type="button" aria-expanded="false" aria-controls="dd-des"><span data-i18n="nav_des">Destino</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
-        <div class="dd-menu" id="dd-des"><a href="#territorio"><span data-i18n="m_des1">Destino Mocho Choshuenco</span></a><a href="#clima"><span data-i18n="m_des2">El tiempo en Choshuenco</span></a><a href="#volcan"><span data-i18n="m_des8">Alerta volcánica</span></a><a href="#hua-hum"><span data-i18n="m_des3">Paso Hua Hum</span></a><a href="#entradas"><span data-i18n="m_des4">Entradas a parques</span></a><a href="#dormir"><span data-i18n="m_des5">Dónde dormir</span></a><a href="#comer"><span data-i18n="m_des6">Dónde comer</span></a><a href="#cafe"><span data-i18n="m_des7">Cafeterías</span></a></div></div>
+        <div class="dd-menu" id="dd-des"><a href="#territorio"><span data-i18n="m_des1">Destino Mocho Choshuenco</span></a><a href="#clima"><span data-i18n="m_des2">El tiempo en Choshuenco</span></a><a href="#volcan"><span data-i18n="m_des8">Alerta volcánica</span></a><a href="#hua-hum"><span data-i18n="m_des3">Paso Hua Hum</span></a><a href="#parques"><span data-i18n="m_des4">Parques y entradas</span></a><a href="#dormir"><span data-i18n="m_des5">Dónde dormir</span></a><a href="#comer"><span data-i18n="m_des6">Dónde comer</span></a><a href="#cafe"><span data-i18n="m_des7">Cafeterías</span></a></div></div>
       <a class="nav-top" href="#blog" data-i18n="nav_blog">Blog</a>
       <div class="dd"><button type="button" aria-expanded="false" aria-controls="dd-con"><span data-i18n="nav_con">Contacto</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
         <div class="dd-menu" id="dd-con"><a href="#contacto"><span data-i18n="m_con1">Escríbenos</span></a><a href="#grupos"><span data-i18n="m_con2">Grupos y agencias</span></a><a href="#ubicacion"><span data-i18n="m_con3">Dónde estamos</span></a></div></div>
@@ -676,7 +1375,7 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
       <article class="leader">
         <p class="eyebrow">Trip leader</p>
         <div class="leader-head"><img class="leader-pic" src="img/angel.jpg" alt="Angel Delgado Cárdenas, trip leader de Wechuntu" width="400" height="400"><h3 style="font-size:1.6rem;flex:1">Angel Delgado Cárdenas</h3><a href="https://angm.cl" target="_blank" rel="noopener" aria-label="Asociación Nacional de Guías de Montaña de Chile"><img src="img/angm.png" alt="ANGM Chile" width="72" height="72"></a></div>
-        <p data-i18n="leader_bio">Nació y se formó en Choshuenco, al pie del Mocho-Choshuenco. Lleva más de diez años guiando en volcanes, glaciares, ríos y lagos del sur de Chile, y fundó Wechuntu para compartir este territorio con estándares profesionales de seguridad.</p>
+        <p data-i18n="leader_bio">Creció y se formó en el territorio del Mocho-Choshuenco. Lleva más de diez años guiando en volcanes, glaciares, ríos y lagos del sur de Chile, y fundó Wechuntu para compartir este territorio con estándares profesionales de seguridad.</p>
         <p class="cert-h" data-i18n="cf_h">Formación técnica y deportiva</p>
         <ul class="certs">
           <li><span>ANGM</span><span data-i18n="c1">Guía de Media Montaña, registro N° 37028</span></li>
@@ -734,18 +1433,14 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
           <span><b data-i18n="ref2t">Manual de Buenas Prácticas para Tour Operadores</b><small data-i18n="ref2">SERNATUR · buenas prácticas económicas, socioculturales y ambientales.</small></span>
           <em data-i18n="ref_go">Abrir</em>
         </a>
-        <a class="ref" href="https://rnvv.sernageomin.cl/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 40l13-20h4l3 4 3-4h4l11 20z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M22 14c-1-3 1-6 4-6M27 14c1-3 4-4 6-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="45" r="2.2" fill="#5cb85c"/><circle cx="20" cy="45" r="2.2" fill="#f2d43d"/><circle cx="28" cy="45" r="2.2" fill="#f0883e"/><circle cx="36" cy="45" r="2.2" fill="#e04b3c"/></svg>
-          <span><b data-i18n="ref3t">Alerta técnica volcánica</b><small data-i18n="ref3">SERNAGEOMIN · estado vigente del complejo Mocho-Choshuenco.</small></span>
-          <em data-i18n="ref_go">Abrir</em>
-        </a>
       </div>
     </div>
     <div class="staff" id="equipo">
       <h3 class="edu-h" data-i18n="staff_h">Equipo Wechuntu</h3>
       <p style="color:var(--ink-2);margin:0" data-i18n="staff_p">Guías e instructores certificados que trabajan junto a nuestro trip leader.</p>
       <div class="staff-grid">
-        <article class="member"><div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div><small data-i18n="st_role">Guía / instructor(a)</small><h4 data-i18n="st_name">Profesional Wechuntu</h4><p data-i18n="st_cert">Perfil y certificaciones próximamente</p></div></article>
+        <article class="member member-full"><div class="av av-ini" aria-hidden="true">JM</div><div><small data-i18n="jm_role">Guía de rafting y kayak de travesía</small><h4>Javiera Martínez Espinoza</h4><p data-i18n="jm_p">Médica cirujana con experiencia en urgencias y atención rural en el territorio.</p>
+          <ul class="mcerts"><li data-i18n="jm1">Guía de Rafting Nivel II</li><li>ACA L2 · Kayak Touring</li><li>Swiftwater Rescue PRO-I</li><li data-i18n="jm4">Wilderness First Aid Advanced (40 h)</li><li data-i18n="jm5">RCP y DEA</li></ul></div></article>
         <article class="member"><div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div><small data-i18n="st_role">Guía / instructor(a)</small><h4 data-i18n="st_name">Profesional Wechuntu</h4><p data-i18n="st_cert">Perfil y certificaciones próximamente</p></div></article>
         <article class="member"><div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div><small data-i18n="st_role">Guía / instructor(a)</small><h4 data-i18n="st_name">Profesional Wechuntu</h4><p data-i18n="st_cert">Perfil y certificaciones próximamente</p></div></article>
       </div>
@@ -807,8 +1502,50 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
   </div>
 </section>
 
+<section class="band" id="medios">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-i18n="nw_eyebrow">En los medios</p>
+      <h2 data-i18n="nw_h2">Wechuntu en notas y reportajes</h2>
+    </div>
+    <div class="news-grid">
+      <a class="news" href="https://laderasur.com/destino/panguipulli-sietelagos-7-imperdibles-para-este-verano-en-la-region-de-los-rios/" target="_blank" rel="noopener">
+        <span class="nw-src">Ladera Sur · <time datetime="2023-12-21" data-i18n="nw1d">21 dic 2023</time></span>
+        <b>Panguipulli-Sietelagos: 7 imperdibles para este verano en la Región de Los Ríos</b>
+        <small data-i18n="nw1">Angel Delgado, de Wechuntu, recomienda el trekking a la Tumba del Buey, posible durante todo el año.</small>
+        <em data-i18n="nw_go">Leer nota</em>
+      </a>
+      <a class="news" href="https://laderasur.com/destino/panguipulli-otonal-siete-tours-poco-tradicionales-que-esperan-por-ti/" target="_blank" rel="noopener">
+        <span class="nw-src">Ladera Sur · <time datetime="2024-03-19" data-i18n="nw2d">19 mar 2024</time></span>
+        <b>Panguipulli otoñal: siete tours poco tradicionales que esperan por ti</b>
+        <small data-i18n="nw2">Wechuntu aparece entre las empresas locales que ofrecen rafting en Panguipulli.</small>
+        <em data-i18n="nw_go">Leer nota</em>
+      </a>
+      <a class="news" href="https://www.desarrollochoshuenco.cl/noticia/la-escuela-de-esqui-en-la-reserva-nacional-mocho-choshuenco-ya-es-una-realidad/" target="_blank" rel="noopener">
+        <span class="nw-src">Corporación de Desarrollo Choshuenco · <time datetime="2024-08-15" data-i18n="nw3d">15 ago 2024</time></span>
+        <b>La escuela de esquí en la Reserva Nacional Mocho Choshuenco ya es una realidad</b>
+        <small data-i18n="nw3">Niños y niñas del territorio vivieron su primera clase de esquí; Angel Delgado participa como instructor.</small>
+        <em data-i18n="nw_go">Leer nota</em>
+      </a>
+      <a class="news" href="https://parqueslosrios.cl/sitio/rn-mocho-choshuenco/" target="_blank" rel="noopener">
+        <span class="nw-src">CONAF · Parques Los Ríos</span>
+        <b data-i18n="nw4t">Operadores autorizados de la Reserva Nacional Mocho Choshuenco</b>
+        <small data-i18n="nw4">Wechuntu Outdoor SpA figura en el listado oficial de operadores turísticos autorizados.</small>
+        <em data-i18n="nw_go2">Ver listado</em>
+      </a>
+      <a class="news" href="https://descubrelosrios.cl/rafting-en-la-region-de-los-rios/" target="_blank" rel="noopener">
+        <span class="nw-src">Descubre Los Ríos</span>
+        <b data-i18n="nw5t">Rafting en la Región de Los Ríos</b>
+        <small data-i18n="nw5">Wechuntu Outdoor aparece entre los operadores de rafting en el río Fuy.</small>
+        <em data-i18n="nw_go2">Ver listado</em>
+      </a>
+    </div>
+  </div>
+</section>
 
-<section class="band" id="reservar">
+
+
+<section id="reservar">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow" data-i18n="res_eyebrow">Cómo reservar</p>
@@ -836,11 +1573,26 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
 </section>
 
 
-<section id="visita">
+<section class="band" id="visita">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow" data-i18n="vis_eyebrow">Para el visitante</p>
       <h2 data-i18n="vis_h2">Planifica tu visita</h2>
+    </div>
+    <div class="parks" id="parques">
+      <div class="parks-head">
+        <h3 class="edu-h" style="margin:0" data-i18n="pk_h">Parques y reservas del destino</h3>
+        <p data-i18n="p_p">Nuestros programas incluyen el ticket de ingreso. Si visitas por tu cuenta, compra tus entradas en línea:</p>
+      </div>
+      <div class="parks-grid">
+        <div class="pmap-wrap"><div id="pmap" class="pmap" role="region" aria-label="Mapa de parques y reservas del destino Mocho Choshuenco"><p class="pmap-fb" data-i18n="pk_fb">Cargando mapa…</p></div></div>
+        <ol class="plist">
+          <li data-pk="1"><span class="pin">1</span><div><b>Parque Pirinel</b><small data-i18n="pk1">Bosque nativo, cascadas y senderos (uno accesible). Gratis para residentes de Choshuenco, Punahue y Paillahuinte.</small><div class="plinks"><a href="https://outlife.parquepirinel.cl/" target="_blank" rel="noopener" data-i18n="buy">Comprar</a><a href="https://www.google.com/maps/dir/?api=1&amp;destination=-39.8575,-72.1062" target="_blank" rel="noopener" data-i18n="pk_go">Cómo llegar</a></div></div></li>
+          <li data-pk="2"><span class="pin">2</span><div><b>Reserva Nacional Mocho Choshuenco</b><small data-i18n="pk2">Volcanes, glaciares y bosque de lenga. Administrada por CONAF.</small><div class="plinks"><a href="https://www.pasesparques.cl" target="_blank" rel="noopener" data-i18n="buy">Comprar</a><a href="https://parqueslosrios.cl/sitio/rn-mocho-choshuenco/" target="_blank" rel="noopener" data-i18n="pk_info">Info</a><a href="https://www.google.com/maps/dir/?api=1&amp;destination=-39.9386,-72.0975" target="_blank" rel="noopener" data-i18n="pk_go">Cómo llegar</a></div></div></li>
+          <li data-pk="3"><span class="pin">3</span><div><b>Parque Neltume</b><small data-i18n="pk3">Salto del Huilo Huilo y centro de conservación de fauna nativa.</small><div class="plinks"><a href="https://parqueneltume.cl/tienda/" target="_blank" rel="noopener" data-i18n="buy">Comprar</a><a href="https://www.google.com/maps/dir/?api=1&amp;destination=-39.8501,-71.9574" target="_blank" rel="noopener" data-i18n="pk_go">Cómo llegar</a></div></div></li>
+          <li data-pk="4"><span class="pin">4</span><div><b>Reserva Biológica Huilo Huilo</b><small data-i18n="pk4">Senderos, saltos de agua y centro de esquí en invierno.</small><div class="plinks"><a href="https://www.turismohuilohuilo.com/" target="_blank" rel="noopener" data-i18n="buy">Comprar</a><a href="https://www.google.com/maps/dir/?api=1&amp;destination=-39.8542,-71.9524" target="_blank" rel="noopener" data-i18n="pk_go">Cómo llegar</a></div></div></li>
+        </ol>
+      </div>
     </div>
     <div class="vgrid">
       <article class="vcard" id="clima">
@@ -859,16 +1611,6 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
         <p data-i18n="h_p">Une la ruta 203 con San Martín de los Andes, en Argentina. Para llegar se cruza el lago Pirihueico en barcaza desde Puerto Fuy. En verano y fines de semana largos conviene reservar.</p>
         <a class="vlink" href="https://barcazahuahum.com/es/" target="_blank" rel="noopener" data-i18n="h_l1">Horarios, tarifas y reservas de la barcaza</a>
         <a class="vlink" href="https://www.pasosfronterizos.gov.cl/complejos-fronterizos/losrios/paso-huahum/" target="_blank" rel="noopener" data-i18n="h_l2">Estado del paso fronterizo</a>
-      </article>
-      <article class="vcard" id="entradas">
-        <h3 data-i18n="p_h">Entradas a parques</h3>
-        <p data-i18n="p_p">Nuestros programas incluyen el ticket de ingreso. Si visitas por tu cuenta, compra tus entradas en línea:</p>
-        <ul class="vlist">
-          <li><span><b>Parque Pirinel</b><small>Outlife</small></span><a href="https://www.outlife.cl/ticket-y-socios/ticket/" target="_blank" rel="noopener" data-i18n="buy">Comprar</a></li>
-          <li><span><b>Parque Neltume</b><small>Neltume</small></span><a href="https://parqueneltume.cl/tienda/" target="_blank" rel="noopener" data-i18n="buy">Comprar</a></li>
-          <li><span><b>Reserva Biológica Huilo Huilo</b><small>Neltume</small></span><a href="https://www.turismohuilohuilo.com/" target="_blank" rel="noopener" data-i18n="buy">Comprar</a></li>
-          <li><span><b>Áreas protegidas CONAF</b><small>pasesparques.cl</small></span><a href="https://www.pasesparques.cl" target="_blank" rel="noopener" data-i18n="buy">Comprar</a></li>
-        </ul>
       </article>
       <article class="vcard" id="dormir">
         <details class="vdet"><summary><h3 data-i18n="d_h">Dónde dormir</h3><span class="cnt">7</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary><div class="vdet-in">
@@ -918,7 +1660,7 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
 
 
 
-<section class="band" id="blog">
+<section id="blog">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow" data-i18n="blog_eyebrow">Bitácora Wechuntu</p>
@@ -935,7 +1677,7 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
 </section>
 
 
-<section id="contacto">
+<section class="band" id="contacto">
   <div class="wrap contact">
     <div>
       <p class="eyebrow" data-i18n="con_eyebrow">Contacto</p>
@@ -971,7 +1713,7 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
   </div>
 </section>
 
-<section class="band" id="ubicacion">
+<section id="ubicacion">
   <div class="wrap ubi">
     <div>
       <p class="eyebrow" data-i18n="ubi_eyebrow">Ubicación</p>
@@ -1012,6 +1754,7 @@ footer .ft-seal img{height:84px;width:84px;border-radius:6px;background:#fff;pad
 
 <a class="fab wa-link" data-wa="general" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></a>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 const WA="56998142747";
 const EXPS=[
@@ -1057,12 +1800,12 @@ const EXPS=[
   specs:[["dur","2,5 h"],["alt",{es:"Clase I-II",en:"Class I-II"}],["lvl",{es:"Familiar",en:"Family"}],["season",{es:"Septiembre a mayo",en:"September to May"}],["min",{es:"4 a 7 por balsa",en:"4 to 7 per raft"}],["ratio",{es:"1 guía IRF por balsa",en:"1 IRF guide per raft"}]],
   inc:{es:["Balsa, casco, chaleco salvavidas, remo y traje de neopreno","Turnos 09:30 y 14:00"],en:["Raft, helmet, life jacket, paddle and wetsuit","Departures 09:30 and 14:00"]},
   price:{es:"$28.000 adulto · $22.000 menor de 10",en:"CLP 28,000 adult · 22,000 under 10"}},
- {id:"FLOT",n:null,img:"flotada.jpg",cats:["verano","agua","familia"],tag:{es:"Accesible",en:"Accessible"},
-  name:{es:"Flotada Familiar Inclusiva",en:"Inclusive Family Float"},
-  desc:{es:"Flotada guiada en un sector de aguas tranquilas del río Fuy, sin remado activo, adaptada a personas con discapacidad.",en:"Guided float on a calm stretch of the Fuy River, no paddling required, adapted for people with disabilities."},
-  specs:[["dur","60–90 min"],["alt",{es:"Clase I",en:"Class I"}],["lvl",{es:"Inclusivo",en:"Inclusive"}],["season",{es:"Todo el año, según caudal",en:"Year-round, river permitting"}],["min",{es:"Según grupo",en:"Per group"}],["ratio",{es:"Definido con la familia",en:"Set with each family"}]],
-  inc:{es:["Embarque con acceso facilitado","Cuestionario de apoyos y adaptaciones antes de la salida"],en:["Easy-access boarding point","Support and adaptation questionnaire before the trip"]},
-  price:{es:"Consultar",en:"Ask us"},ask:true},
+ {id:"FLOT",n:null,img:"flotada.jpg",cats:["verano","agua","familia"],tag:{es:"Inclusivo y personalizado",en:"Inclusive & tailored"},
+  name:{es:"Flotada Inclusiva Personalizada",en:"Tailored Inclusive Float"},
+  desc:{es:"Flotada guiada en aguas tranquilas del río Fuy, pensada para niños, niñas y adolescentes neurodivergentes que requieren adaptaciones o apoyos complementarios, y para personas mayores. Cada salida se diseña con la familia: ritmo, grupo, apoyos y duración.",en:"Guided float on a calm stretch of the Fuy River, designed for neurodivergent children and teenagers who need adaptations or extra support, and for older adults. Each trip is planned with the family: pace, group, support and length."},
+  specs:[["dur",{es:"60–90 min, flexible",en:"60–90 min, flexible"}],["alt",{es:"Clase I, sin remado activo",en:"Class I, no paddling"}],["lvl",{es:"Personalizado",en:"Tailored"}],["season",{es:"Todo el año, según caudal",en:"Year-round, river permitting"}],["min",{es:"Grupo exclusivo",en:"Private group"}],["ratio",{es:"Según los apoyos requeridos",en:"Based on support needs"}]],
+  inc:{es:["Conversación previa con la familia o cuidador para conocer necesidades, intereses y apoyos","Adaptaciones sensoriales, de comunicación y de ritmo según cada participante","Grupo exclusivo, sin mezclar con otros visitantes","Embarque con acceso facilitado y equipo de seguridad completo","Valor personalizado según el diseño de la experiencia"],en:["Prior conversation with the family or carer about needs, interests and support","Sensory, communication and pacing adaptations for each participant","Private group, not mixed with other visitors","Easy-access boarding and full safety gear","Tailored price based on the experience design"]},
+  price:{es:"Valor personalizado",en:"Tailored price"},ask:true},
  {id:"KAY",n:95000,img:"kayak.jpg",cats:["verano","agua"],tag:{es:"Lago Panguipulli",en:"Lake Panguipulli"},
   name:{es:"Kayak Isla Gabriela",en:"Isla Gabriela Kayak"},
   desc:{es:"Navegación en kayak por el lago Panguipulli hasta isla Gabriela, en aguas tranquilas.",en:"Kayak across calm Lake Panguipulli to Isla Gabriela."},
@@ -1079,7 +1822,8 @@ const EXPS=[
 const LBL={es:{dur:"Duración",alt:"Altitud / tramo",lvl:"Nivel",season:"Temporada",min:"Mínimo",age:"Edad",ratio:"Guía : pax",price:"Por persona",from:"Desde",inc:"Detalle",ask:"Consultar por WhatsApp",askshort:"Consultar"},
            en:{dur:"Duration",alt:"Altitude / section",lvl:"Level",season:"Season",min:"Minimum",age:"Age",ratio:"Guide : guests",price:"Per person",from:"From",inc:"Details",ask:"Ask on WhatsApp",askshort:"Ask"}};
 const T={en:{
- nav_exp:"Experiences",k7t:"Operator with a current CONAF permit",cn_eyebrow:"Protected areas",cn_h:"CONAF-authorised operator",cn_p:"We hold a current CONAF permit for guiding and hiking in the Mocho Choshuenco National Reserve, Villarrica National Park (southern sector) and Alerce Costero National Park.",cn_l:"Check CONAF's list of authorised operators",ft4:"CONAF-authorised operator in protected areas",v_h:"Volcanic alert",v_p:"SERNAGEOMIN monitors the Mocho-Choshuenco complex and publishes its technical alert. Check it before heading into the mountains.",v_l:"See the current technical alert (SERNAGEOMIN)",al_g:"Green",al_y:"Yellow",al_o:"Orange",al_r:"Red",ref_eyebrow:"Responsible tourism",ref_h:"References that guide our work",ref1t:"Global Code of Ethics for Tourism",ref1:"UN Tourism · 10 principles for responsible, sustainable and accessible tourism.",ref2t:"Good Practice Manual for Tour Operators",ref2:"SERNATUR · economic, socio-cultural and environmental good practices.",ref3t:"Volcanic technical alert",ref3:"SERNAGEOMIN · current alert status for the Mocho-Choshuenco complex.",ref_go:"Open",m_des8:"Volcanic alert",m_exp5:"Outdoor education",m_nos5:"Our team",
+ nav_exp:"Experiences",jm_role:"Rafting and kayak touring guide",jm_p:"Medical doctor with experience in emergency and rural care in the area.",jm1:"Rafting Guide Level II",jm4:"Wilderness First Aid Advanced (40 h)",jm5:"CPR and AED",pk_h:"Parks and reserves in the destination",pk_fb:"Loading map…",pk1:"Native forest, waterfalls and trails (one accessible). Free for residents of Choshuenco, Punahue and Paillahuinte.",pk2:"Volcanoes, glaciers and lenga forest. Managed by CONAF.",pk3:"Huilo Huilo waterfall and native wildlife conservation centre.",pk4:"Trails, waterfalls and a ski area in winter.",pk_go:"Directions",pk_info:"Info",m_nos6:"In the media",nw_eyebrow:"In the media",nw_h2:"Wechuntu in articles and features",nw1d:"21 Dec 2023",nw2d:"19 Mar 2024",nw3d:"15 Aug 2024",nw1:"Angel Delgado of Wechuntu recommends the Tumba del Buey trek, possible all year round.",nw2:"Wechuntu is listed among local rafting companies in Panguipulli.",nw3:"Local children had their first ski lesson; Angel Delgado took part as an instructor.",nw4t:"Authorised operators of the Mocho Choshuenco National Reserve",nw4:"Wechuntu Outdoor SpA is on the official list of authorised tour operators.",nw5t:"Rafting in the Los Ríos Region",nw5:"Wechuntu Outdoor is listed among rafting operators on the Fuy River.",nw_go:"Read article",nw_go2:"See list",
+k7t:"Operator with a current CONAF permit",cn_eyebrow:"Protected areas",cn_h:"CONAF-authorised operator",cn_p:"We hold a current CONAF permit for guiding and hiking in the Mocho Choshuenco National Reserve, Villarrica National Park (southern sector) and Alerce Costero National Park.",cn_l:"Check CONAF's list of authorised operators",ft4:"CONAF-authorised operator in protected areas",v_h:"Volcanic alert",v_p:"SERNAGEOMIN monitors the Mocho-Choshuenco complex and publishes its technical alert. Check it before heading into the mountains.",v_l:"See the current technical alert (SERNAGEOMIN)",al_g:"Green",al_y:"Yellow",al_o:"Orange",al_r:"Red",ref_eyebrow:"Responsible tourism",ref_h:"References that guide our work",ref1t:"Global Code of Ethics for Tourism",ref1:"UN Tourism · 10 principles for responsible, sustainable and accessible tourism.",ref2t:"Good Practice Manual for Tour Operators",ref2:"SERNATUR · economic, socio-cultural and environmental good practices.",ref3t:"Volcanic technical alert",ref3:"SERNAGEOMIN · current alert status for the Mocho-Choshuenco complex.",ref_go:"Open",m_des8:"Volcanic alert",m_exp5:"Outdoor education",m_nos5:"Our team",
  edu_eyebrow:"Outdoor education",edu_h2:"Training the next generation of the mountains",
  edu_lead:"Rivers, lakes, forests and snow are classrooms too. We design educational programs for children and teenagers that combine technique, safety, teamwork and a bond with the land.",
  edu_p:"Our bet is simple: those who learn to know, enjoy and care for the mountains when young will be the ones who protect them tomorrow.",
@@ -1116,7 +1860,7 @@ nav_seg:"Safety",nav_terr:"The area",nav_nos:"About",nav_con:"Contact",
  f_all:"All",f_sum:"Summer",f_win:"Winter",f_mtn:"Mountain",f_wat:"Water",f_fam:"Families",
  exp_note:"Prices in Chilean pesos per person, VAT included. Subject to guide availability and weather and volcanic conditions. Residents of Panguipulli, Los Lagos and Futrono get preferential prices on selected programs.",
  seg_eyebrow:"Safety and guides",seg_h2:"Who guides you on the mountain",reg_label:"Registration",reg_role:"Mountain Guide (Media Montaña)",
- leader_bio:"Born and raised in Choshuenco, at the foot of Mocho-Choshuenco. He has guided on volcanoes, glaciers, rivers and lakes in southern Chile for more than ten years, and founded Wechuntu to share this land with professional safety standards.",
+ leader_bio:"He grew up and trained in the Mocho-Choshuenco area. He has guided on volcanoes, glaciers, rivers and lakes in southern Chile for more than ten years, and founded Wechuntu to share this land with professional safety standards.",
  c1:"Mountain Guide (Media Montaña), registration No. 37028",c2:"Rafting Guide level III",c3:"Kayak touring guide level II",c4:"Wilderness First Responder (recertified 2025)",c5b:"Leave No Trace Master",c6k:"Avalanche",c6b:"Avalanche training REC+1",c7k:"Rescue",c7b:"Swiftwater rescue",cf_h:"Technical and sports training",ca_h:"Academic background",a1:"History and Social Sciences teacher",a2:"Master in Government, Management and Regional Development",a3:"Diploma in Sustainable Tourism, University of Salamanca",a4:"Advanced Diploma in Political Education",a5:"Localising the SDGs in Latin America and the Caribbean (ILPES, 2025)",c5:"Swiftwater rescue",c6:"Snow science and avalanche rescue",c7:"Leave No Trace Master Educator, NOLS",
  k1t:"SERNATUR registered company No. 108568",k1:"Operating under Law 20.423, Decree No. 19 and Chilean standards NCh2951 (mountain), NCh2991 (rafting) and NCh2996 (kayak).",
  k2t:"Daily weather and volcano check",k2:"We follow SERNAGEOMIN's volcanic alert level. If conditions are unsafe, we reschedule at no cost or refund your deposit.",
@@ -1491,6 +2235,31 @@ function openFromHash(){const h=location.hash;if(h.startsWith("#blog-"))openPost
   mq.addEventListener("change",()=>setMenu(false));
   addEventListener("resize",()=>{if(hdr.hasAttribute("data-menu"))setH()});
 })();
+
+/* ===== Mapa de parques y reservas ===== */
+const PARKS=[
+ {n:1,lat:-39.8575,lng:-72.1062,name:"Parque Pirinel",buy:"https://outlife.parquepirinel.cl/"},
+ {n:2,lat:-39.9386,lng:-72.0975,name:"Reserva Nacional Mocho Choshuenco",buy:"https://www.pasesparques.cl"},
+ {n:3,lat:-39.8501,lng:-71.9574,name:"Parque Neltume",buy:"https://parqueneltume.cl/tienda/",dx:-14},
+ {n:4,lat:-39.8542,lng:-71.9524,name:"Reserva Biológica Huilo Huilo",buy:"https://www.turismohuilohuilo.com/",dx:14}
+];
+let PMAP=null,PMK={};
+function initParksMap(){
+  const el=document.getElementById("pmap");if(!el)return;
+  if(typeof L==="undefined"){el.querySelector(".pmap-fb").textContent=lang==="es"?"El mapa no está disponible en esta vista. Usa los enlaces de cada parque.":"The map isn't available in this view. Use each park's links.";return}
+  PMAP=L.map(el,{scrollWheelZoom:false,zoomControl:true}).setView([-39.885,-72.02],10);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:17,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(PMAP);
+  const icon=(html,cls,dx)=>L.divIcon({className:"mk",html:`<span class="pin ${cls||""}">${html}</span>`,iconSize:[28,28],iconAnchor:[14-(dx||0),14]});
+  PARKS.forEach(p=>{PMK[p.n]=L.marker([p.lat,p.lng],{icon:icon(p.n,"",p.dx),title:p.name}).addTo(PMAP).bindPopup(`<b>${p.name}</b><a href="${p.buy}" target="_blank" rel="noopener">${lang==="es"?"Comprar entrada":"Buy ticket"}</a>`)});
+  L.marker([-39.8353,-72.0821],{icon:icon("W","base"),title:"Wechuntu Outdoor"}).addTo(PMAP).bindPopup("<b>Wechuntu Outdoor</b>Independencia 1, Choshuenco");
+  L.marker([-39.927,-72.027],{icon:icon("▲","peak"),title:"Volcán Mocho"}).addTo(PMAP).bindPopup("<b>Volcán Mocho · 2.422 m</b>");
+  PMAP.fitBounds(L.latLngBounds([[-39.8353,-72.0821],...PARKS.map(p=>[p.lat,p.lng])]).pad(0.15));
+  const fb=el.querySelector(".pmap-fb");if(fb)fb.remove();
+  document.querySelectorAll(".plist li").forEach(li=>li.addEventListener("click",e=>{if(e.target.closest("a"))return;const m=PMK[li.dataset.pk];if(!m)return;
+    document.querySelectorAll(".plist li").forEach(x=>x.classList.toggle("on",x===li));PMAP.setView(m.getLatLng(),12);m.openPopup()}));
+}
+(function(){const el=document.getElementById("pmap");if(!el)return;
+  if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting)){io.disconnect();initParksMap()}},{rootMargin:"300px"});io.observe(el)}else initParksMap();})();
 
 applyLang();
 openFromHash();
