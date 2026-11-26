@@ -1,2 +1,9 @@
 /img/*
   Access-Control-Allow-Origin: *
+
+/docs/*
+  Content-Type: application/pdf
+  X-Content-Type-Options: nosniff
+
+/docs/afiche-codigo-etico-mundial-turismo.pdf
+  Content-Disposition: attachment; filename="afiche-codigo-etico-mundial-turismo.pdf"
